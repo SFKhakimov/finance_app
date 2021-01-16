@@ -3,10 +3,20 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
-    entry: './src/index.tsx',
+    entry: path.join(__dirname, '../src/', 'index.tsx'),
     output: {
-        filename: '[name].[hash].js',
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, '../dist'),
+        filename: '[name].[hash].bundle.js',
+        chunkFilename: '[name].[hash].bundle.js',
+        publicPath: '/',
+    },
+    resolve: {
+        extensions: ['.jsx', '.js', '.ts', '.tsx'],
+        modules: [
+            'node_modules',
+            path.join(__dirname, '../src/'),
+            path.resolve(__dirname, '../src/modules'),
+        ],
     },
     module: {
         rules: [
@@ -14,24 +24,20 @@ module.exports = {
                 test: /\.(js|jsx|ts|tsx)$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: "babel-loader"
+                    loader: 'babel-loader',
                 },
             },
-        ]
-    },
-    resolve: {
-        extensions: ['.jsx', '.js', 'ts', 'tsx'],
+        ],
     },
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             inject: true,
             hash: true,
-            template: path.resolve(__dirname, './src/index.html')
-        })
+            template: path.resolve(__dirname, '../src/index.html'),
+        }),
     ],
     optimization: {
-        moduleIds: 'deterministic',
         runtimeChunk: 'single',
         splitChunks: {
             cacheGroups: {
@@ -43,4 +49,4 @@ module.exports = {
             },
         },
     },
-};
+}
