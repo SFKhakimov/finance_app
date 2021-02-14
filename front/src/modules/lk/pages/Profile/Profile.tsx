@@ -1,5 +1,5 @@
 import React from 'react'
 
-const Profile: React.FC = () => <div>Страница профиля</div>
+const ProfilePage: React.FC = () => <div>Страница профиля</div>
 
-export default Profile
+export default ProfilePage

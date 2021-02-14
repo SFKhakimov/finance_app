@@ -1,12 +1,16 @@
 import React from 'react'
-import { PartialRouteObject } from 'react-router'
-import Main from 'store/pages/Main/Main'
+import { Navigate, PartialRouteObject } from 'react-router'
+import MainPage from 'store/pages/Main/Main'
 import Error404 from 'common/pages/Errors/Error404'
 
 const storeRoutes: PartialRouteObject[] = [
     {
+        path: '/',
+        element: <Navigate to={'store'} />,
+    },
+    {
         path: 'store',
-        element: <Main />
+        element: <MainPage />,
     },
     {
         path: '*',

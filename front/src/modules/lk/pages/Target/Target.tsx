@@ -1,7 +1,7 @@
 import React from 'react'
 
-const Target = () => {
+const TargetPage = () => {
     return <div>Страница цели</div>
 }
 
-export default Target
+export default TargetPage

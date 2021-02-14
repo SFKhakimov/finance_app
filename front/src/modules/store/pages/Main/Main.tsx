@@ -1,5 +1,5 @@
 import React from 'react'
 
-const Main: React.FC = () => <div>Главная страница</div>
+const MainPage: React.FC = () => <div>Главная страница</div>
 
-export default Main
+export default MainPage

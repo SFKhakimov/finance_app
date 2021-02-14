@@ -1,5 +1,6 @@
 import React from 'react'
+import HomeContainer from 'lk/containers/Home/Home'
 
-const Home: React.FC = () => <div>Основная страница личного кабинета</div>
+const HomePage: React.FC = () => <HomeContainer />
 
-export default Home
+export default HomePage
