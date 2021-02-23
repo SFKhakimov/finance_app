@@ -7,15 +7,21 @@ import {
     ListItemText,
     makeStyles,
 } from '@material-ui/core'
-import { drawerMenuItems } from 'lk/pages'
 import { useNavigate } from 'react-router-dom'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
+import { drawerMenuItems } from 'lk/pages'
 
 const useStyles = makeStyles({
     list: {
         width: 250,
+        height: '100%',
     },
     fullList: {
         width: 'auto',
+    },
+    exitButton: {
+        position: 'absolute',
+        bottom: 0,
     },
 })
 
@@ -44,6 +50,12 @@ const MenuDrawer: React.FC<Props> = ({ isOpened, onCloseDrawer }) => {
                     <ListItemText>{item.label}</ListItemText>
                 </ListItem>
             ))}
+            <ListItem button className={classes.exitButton}>
+                <ListItemIcon onClick={() => {}}>
+                    <ExitToAppIcon />
+                </ListItemIcon>
+                <ListItemText>Выйти</ListItemText>
+            </ListItem>
         </List>
     )
     return (

@@ -3,7 +3,8 @@ import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
-import { createStyles, makeStyles } from '@material-ui/core'
+import { CircularProgress, createStyles, makeStyles } from '@material-ui/core'
+import { Balance } from 'common/services/ApiService/types/Balance/Balance'
 
 const useStyles = makeStyles(theme =>
     createStyles({
@@ -15,15 +16,28 @@ const useStyles = makeStyles(theme =>
             ...theme.mixins.toolbar,
         },
         balanceToday: {
-            border: '1px solid red',
             borderRadius: 50,
             minHeight: 90,
+            position: 'relative',
+        },
+        circularInitial: {
+            position: 'absolute',
+            color: theme.palette.grey[300],
+        },
+        circularProgress: {
+            position: 'absolute',
         },
     })
 )
 
-const Dashboard = () => {
+type Props = {
+    balance: Balance
+}
+
+const Dashboard: React.FC<Props> = ({ balance }) => {
     const classes = useStyles()
+    const { currentBalance, initialBalance } = balance
+    const progress = 100 - (currentBalance * 100) / initialBalance
     return (
         <>
             <div className={classes.appBarHeight} />
@@ -42,7 +56,7 @@ const Dashboard = () => {
                                         <Typography
                                             variant="body2"
                                             component="p">
-                                            0
+                                            {initialBalance - currentBalance} Р
                                         </Typography>
                                         <Typography
                                             variant="body2"
@@ -58,10 +72,24 @@ const Dashboard = () => {
                                         alignItems="center"
                                         justifyContent="center"
                                         className={classes.balanceToday}>
+                                        <CircularProgress
+                                            variant="determinate"
+                                            value={100}
+                                            className={classes.circularInitial}
+                                            size={100}
+                                            thickness={2}
+                                        />
+                                        <CircularProgress
+                                            variant="determinate"
+                                            value={Math.round(progress)}
+                                            className={classes.circularProgress}
+                                            size={100}
+                                            thickness={2}
+                                        />
                                         <Typography
                                             variant="body2"
                                             component="p">
-                                            123765.45р
+                                            {currentBalance} Р
                                         </Typography>
                                         <Typography
                                             variant="body2"

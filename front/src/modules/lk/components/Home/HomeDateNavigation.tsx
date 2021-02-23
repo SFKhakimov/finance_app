@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { format } from 'date-fns'
 import Box from '@material-ui/core/Box'
 import IconButton from '@material-ui/core/IconButton'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
@@ -8,22 +9,35 @@ import { KeyboardDatePicker } from '@material-ui/pickers'
 
 const HomeDateNavigation = () => {
     const currentDate = false
+    const [date, setDate] = useState<string | null>()
+    const handleDate = (date: Date) => {
+        console.log(date)
+        setDate(format(date, 'dd.MM.yyyy'))
+    }
+
+    const handlePreviousDate = () => {
+        const newDate = new Date(date).getTime() - 1000 * 60 * 24
+        handleDate(new Date(newDate))
+    }
+    console.log(date)
     return (
         <Box
             display="flex"
             justifyContent="space-between"
             alignItems="center"
             pb={3}>
-            <IconButton>
+            <IconButton onClick={handlePreviousDate}>
                 <ChevronLeftIcon />
             </IconButton>
             {!currentDate && (
                 <KeyboardDatePicker
                     disableToolbar
-                    variant="inline"
-                    format="MM/dd/yyyy"
-                    value={new Date('2014-08-18T21:11:54')}
-                    onChange={() => console.log('выбор даты')}
+                    disableFuture
+                    autoOk
+                    variant="dialog"
+                    format="dd.MM.yyyy"
+                    value={date}
+                    onChange={handleDate}
                 />
             )}
             {currentDate && (
